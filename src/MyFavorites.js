@@ -31,7 +31,7 @@ class MyFavorites extends React.Component {
 
   deletecolor=async(index)=>{
       try{
-      let url=`${process.env.REACT_APP_SERVER}/deletecolor/${user.email}`
+      let url=`${process.env.REACT_APP_SERVER}/deletecolor/${this.state.email}?index=${index}`
       let resData = await axios.post(url,item)
       this.setState({
           colorsArr: resData.data,
@@ -39,6 +39,20 @@ class MyFavorites extends React.Component {
       catch(error){
           console.log('error');
       }   
+  }
+  update = (item, index) => {
+    this.setState({
+      showing: true,
+      index: index
+    })
+  }
+
+ 
+  handleClose = () => {
+    this.setState({
+      show: false,
+
+    })
   }
     return(
       <>
@@ -54,7 +68,7 @@ class MyFavorites extends React.Component {
                   <Card.Title>{item.title}</Card.Title>
 
                   <Button variant="danger" onClick={() => { this.deletecolor(index) }}>Delete</Button>
-                  <Button variant="warning" >Update</Button>
+                  <Button variant="warning" onClick={() => { this.update(item, index) }} >Update</Button>
 
                 </Card.Body>
               </Card>
