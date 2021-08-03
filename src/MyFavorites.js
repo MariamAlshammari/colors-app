@@ -4,16 +4,16 @@ import './MyFavorites.css';
 import { withAuth0 } from '@auth0/auth0-react';
 
 class MyFavorites extends React.Component {
-  render() {
-    constructot(props){
-      super(props)
-      this.state={
-        colorsArr:[],
-        email:'',
-        showing:false,
-        index:0
-      }
+  constructor(props){
+    super(props)
+    this.state={
+      colorsArr:[],
+      email:'',
+      showing:false,
+      index:0
     }
+  }
+  render() {
     componentDidMount = async () => {
       try{
       const { user, isAuthenticated } = this.props.auth0;
