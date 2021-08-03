@@ -46,23 +46,21 @@ class MyFavorites extends React.Component {
         <p>
           This is a collection of my favorites
         </p>
-        {
-                        this.state.colorsArr.map((item) => {
-                            return (
+        {this.state.colorsArr.map((item, index) => {
+            return (
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={item.imageUrl} style={{ height: '200px' }} />
+                <Card.Body>
+                  <Card.Title>{item.title}</Card.Title>
 
-                                <Card style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src="holder.js/100px180" />
-                                    <Card.Body>
-                                        <Card.Title>{item.title}</Card.Title>
-                                        <Card.Text>
-                                            {/* <img src={`${item.imageUrl}`}/> */}
-                                        </Card.Text>
-                                        <Button variant="primary" onClick={()=>{this.deletecolor(item)}}>delete</Button>
-                                    </Card.Body>
-                                </Card>
+                  <Button variant="danger" onClick={() => { this.deletecolor(index) }}>Delete</Button>
+                  <Button variant="warning" >Update</Button>
 
-                            )
-                         })}
+                </Card.Body>
+              </Card>
+            )
+          })}
+      
 
       </>
     )
