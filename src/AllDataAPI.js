@@ -57,7 +57,7 @@ class AllDataAPI extends Component {
                                     <Card.Body>
                                         <Card.Title>{item.title}</Card.Title>
                                         <Card.Text>
-                                            {/* <img src={`${item.imageUrl}`}/> */}
+                                            <img src={item.imageUrl}/>
                                         </Card.Text>
                                         <Button variant="primary" onClick={()=>{this.addfav(item)}}>add to fav</Button>
                                     </Card.Body>
