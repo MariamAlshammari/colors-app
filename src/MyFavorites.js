@@ -2,6 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './MyFavorites.css';
 import { withAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
+import { Card, Button } from 'react-bootstrap';
+
 
 class MyFavorites extends React.Component {
   constructor(props){
@@ -13,47 +16,48 @@ class MyFavorites extends React.Component {
       index:0
     }
   }
+  componentDidMount = async () => {
+    try{
+    const { user, isAuthenticated } = this.props.auth0;
+    let url = `${process.env.REACT_APP_SERVER}/addfav/${user.email}`;
+    let resData = await axios.get(url)
+    this.setState({
+        colorsArr: resData.data,
+        email: user.email
+    })
+}
+catch(error){
+    console.log('error');
+}
+}
+
+deletecolor=async(index)=>{
+    try{
+    let url=`${process.env.REACT_APP_SERVER}/deletecolor/${this.state.email}?index=${index}`
+    let resData = await axios.post(url)
+    this.setState({
+        colorsArr: resData.data,
+    })}
+    catch(error){
+        console.log('error');
+    }   
+}
+update = (item, index) => {
+  this.setState({
+    showing: true,
+    index: index
+  })
+}
+
+
+handleClose = () => {
+  this.setState({
+    show: false,
+
+  })
+}
   render() {
-    componentDidMount = async () => {
-      try{
-      const { user, isAuthenticated } = this.props.auth0;
-      let url = `${process.env.REACT_APP_SERVER}/addfav/${user.email}`;
-      let resData = await axios.get(url)
-      this.setState({
-          colorsArr: resData.data,
-          email: user.email
-      })
-  }
-  catch(error){
-      console.log('error');
-  }
-  }
-
-  deletecolor=async(index)=>{
-      try{
-      let url=`${process.env.REACT_APP_SERVER}/deletecolor/${this.state.email}?index=${index}`
-      let resData = await axios.post(url,item)
-      this.setState({
-          colorsArr: resData.data,
-      })}
-      catch(error){
-          console.log('error');
-      }   
-  }
-  update = (item, index) => {
-    this.setState({
-      showing: true,
-      index: index
-    })
-  }
-
- 
-  handleClose = () => {
-    this.setState({
-      show: false,
-
-    })
-  }
+   
     return(
       <>
         <h1>My Favorites</h1>
